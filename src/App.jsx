@@ -10,7 +10,7 @@ import Footer from './assets/Footer.png';
 import GStar from './assets/GStar.png';
 import BStar from './assets/BStar.png';
 import YStar from './assets/YStar.png';
-import Popups from './components/Popups'; // Import the new component
+import Popups from '../components/Popups.jsx';
 
 function App() {
   const [isPulled, setIsPulled] = useState(false);
