@@ -10,6 +10,7 @@ import Footer from './assets/Footer.png';
 import GStar from './assets/GStar.png';
 import BStar from './assets/BStar.png';
 import YStar from './assets/YStar.png';
+import Popups from './components/Popups'; // Import the new component
 
 function App() {
   const [isPulled, setIsPulled] = useState(false);
@@ -21,6 +22,11 @@ function App() {
   const [isLetterRevealing, setIsLetterRevealing] = useState(false);
   const [isShaking, setIsShaking] = useState(true);
   const [stars, setStars] = useState([]);
+  
+  // New states for popups
+  const [showFlowerPopup, setShowFlowerPopup] = useState(false);
+  const [showImageSetPopup, setShowImageSetPopup] = useState(false);
+  const [showSingleImagePopup, setShowSingleImagePopup] = useState(false);
 
   useEffect(() => {
     document.body.style.margin = '0';
@@ -130,16 +136,17 @@ function App() {
     }, 1200);
   };
 
+  // Updated button handlers to show popups
   const handleButton1Click = () => {
-    console.log('Button 1 clicked');
+    setShowFlowerPopup(true);
   };
 
   const handleButton2Click = () => {
-    console.log('Button 2 clicked');
+    setShowImageSetPopup(true);
   };
 
   const handleButton3Click = () => {
-    console.log('Button 3 clicked');
+    setShowSingleImagePopup(true);
   };
 
   return (
@@ -338,6 +345,16 @@ function App() {
           </button>
         </div>
       </div>
+
+      {/* Import Popups Component */}
+      <Popups
+        showFlowerPopup={showFlowerPopup}
+        showImageSetPopup={showImageSetPopup}
+        showSingleImagePopup={showSingleImagePopup}
+        closeFlowerPopup={() => setShowFlowerPopup(false)}
+        closeImageSetPopup={() => setShowImageSetPopup(false)}
+        closeSingleImagePopup={() => setShowSingleImagePopup(false)}
+      />
 
       {/* Regular style tag instead of jsx global */}
       <style>{`
@@ -538,6 +555,64 @@ function App() {
             opacity: 0.7;
             transform: scale(0.95);
           }
+        }
+        
+        /* Popup animations */
+        @keyframes popup-in {
+          0% {
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        
+        @keyframes glow {
+          0% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+          }
+          50% {
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+          }
+          100% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+          }
+        }
+        
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+        
+        @keyframes pulse-slow {
+          0%, 100% {
+            opacity: 0.2;
+          }
+          50% {
+            opacity: 0.4;
+          }
+        }
+        
+        .animate-popup-in {
+          animation: popup-in 0.3s ease-out forwards;
+        }
+        
+        .animate-glow {
+          animation: glow 2s ease-in-out infinite;
+        }
+        
+        .animate-shimmer {
+          animation: shimmer 2s infinite;
+        }
+        
+        .animate-pulse-slow {
+          animation: pulse-slow 3s ease-in-out infinite;
         }
         
         .animate-falling-star-down {
