@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Flower from '../assets/Flower.png';
 import SingleImage from '../assets/SpecialImage.jpg';
 
-// Import 20 stack images
 import Image20 from '../assets/Image1.png';
 import Image19 from '../assets/Image2.png';
 import Image18 from '../assets/Image3.png';
