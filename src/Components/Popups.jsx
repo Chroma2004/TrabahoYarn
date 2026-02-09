@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 
 // Import images
-import Flower from '../assets/Flower.jpg';
+import Flower from '../assets/Flower.png';
 import SingleImage from '../assets/SpecialImage.jpg';
 
 // Import 20 stack images
-import Image1 from '../assets/Image1.jpg';
-import Image2 from '../assets/Image2.jpg';
-import Image3 from '../assets/Image3.jpg';
-import Image4 from '../assets/Image4.jpg';
-import Image5 from '../assets/Image5.jpg';
-import Image6 from '../assets/Image6.jpg';
-import Image7 from '../assets/Image7.jpg';
-import Image8 from '../assets/Image8.jpg';
-import Image9 from '../assets/Image9.jpg';
-import Image10 from '../assets/Image10.jpg';
-import Image11 from '../assets/Image11.jpg';
-import Image12 from '../assets/Image12.jpg';
-import Image13 from '../assets/Image13.jpg';
-import Image14 from '../assets/Image14.jpg';
-import Image15 from '../assets/Image15.jpg';
-import Image16 from '../assets/Image16.jpg';
-import Image17 from '../assets/Image17.jpg';
-import Image18 from '../assets/Image18.jpg';
-import Image19 from '../assets/Image19.jpg';
-import Image20 from '../assets/Image20.jpg';
+import Image20 from '../assets/Image1.png';
+import Image19 from '../assets/Image2.png';
+import Image18 from '../assets/Image3.png';
+import Image17 from '../assets/Image4.png';
+import Image16 from '../assets/Image5.png';
+import Image15 from '../assets/Image6.png';
+import Image14 from '../assets/Image7.png';
+import Image13 from '../assets/Image8.png';
+import Image12 from '../assets/Image9.png';
+import Image11 from '../assets/Image10.png';
+import Image10 from '../assets/Image11.png';
+import Image9 from '../assets/Image12.png';
+import Image8 from '../assets/Image13.png';
+import Image7 from '../assets/Image14.png';
+import Image6 from '../assets/Image15.png';
+import Image5 from '../assets/Image16.png';
+import Image4 from '../assets/Image17.png';
+import Image3 from '../assets/Image18.png';
+import Image2 from '../assets/Image19.png';
+import Image1 from '../assets/Image20.png';
 
 const Popups = ({
   showFlowerPopup,
