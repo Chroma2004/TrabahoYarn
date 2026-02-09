@@ -4,26 +4,27 @@ import React, { useState } from 'react';
 import Flower from '../assets/Flower.png';
 import SingleImage from '../assets/SpecialImage.jpg';
 
-import Image20 from '../assets/Image1.png';
-import Image19 from '../assets/Image2.png';
-import Image18 from '../assets/Image3.png';
-import Image17 from '../assets/Image4.png';
-import Image16 from '../assets/Image5.png';
-import Image15 from '../assets/Image6.png';
-import Image14 from '../assets/Image7.png';
-import Image13 from '../assets/Image8.png';
-import Image12 from '../assets/Image9.png';
-import Image11 from '../assets/Image10.png';
-import Image10 from '../assets/Image11.png';
-import Image9 from '../assets/Image12.png';
-import Image8 from '../assets/Image13.png';
-import Image7 from '../assets/Image14.png';
-import Image6 from '../assets/Image15.png';
-import Image5 from '../assets/Image16.png';
-import Image4 from '../assets/Image17.png';
-import Image3 from '../assets/Image18.png';
-import Image2 from '../assets/Image19.png';
-import Image1 from '../assets/Image20.png';
+// Import 20 stack images
+import Image1 from '../assets/Image1.png';
+import Image2 from '../assets/Image2.png';
+import Image3 from '../assets/Image3.png';
+import Image4 from '../assets/Image4.png';
+import Image5 from '../assets/Image5.png';
+import Image6 from '../assets/Image6.png';
+import Image7 from '../assets/Image7.png';
+import Image8 from '../assets/Image8.png';
+import Image9 from '../assets/Image9.png';
+import Image10 from '../assets/Image10.png';
+import Image11 from '../assets/Image11.png';
+import Image12 from '../assets/Image12.png';
+import Image13 from '../assets/Image13.png';
+import Image14 from '../assets/Image14.png';
+import Image15 from '../assets/Image15.png';
+import Image16 from '../assets/Image16.png';
+import Image17 from '../assets/Image17.png';
+import Image18 from '../assets/Image18.png';
+import Image19 from '../assets/Image19.png';
+import Image20 from '../assets/Image20.png';
 
 const Popups = ({
   showFlowerPopup,
