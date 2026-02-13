@@ -11,6 +11,7 @@ import GStar from './assets/GStar.png';
 import BStar from './assets/BStar.png';
 import YStar from './assets/YStar.png';
 import Popups from './Components/Popups.jsx';
+import Title from './assets/Title.png';
 
 function App() {
   const [isPulled, setIsPulled] = useState(false);
@@ -206,6 +207,15 @@ function App() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Title background layer - Made bigger and positioned at top */}
+      <div className="absolute top-8 left-0 right-0 w-full flex justify-center pointer-events-none z-0">
+        <img 
+          src={Title} 
+          alt="Title" 
+          className="w-full min-w-[350px] max-w-[400px] md:max-w-[400px] lg:max-w-[500px] xl:max-w-[600px]"
+        />
       </div>
 
       {/* Footer background layer - Made bigger */}

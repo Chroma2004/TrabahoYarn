@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // Import images
 import Flower from '../assets/Flower.png';
-import SingleImage from '../assets/SpecialImage.jpg';
+import SingleImage from '../assets/SpecialImage.png';
 
 // Import 20 stack images nginang image6
 import Image20 from '../assets/Image1.png';
@@ -25,6 +25,7 @@ import Image4 from '../assets/Image17.png';
 import Image3 from '../assets/Image18.png';
 import Image2 from '../assets/Image19.png';
 import Image1 from '../assets/Image20.png';
+import Image21 from '../assets/Image21.png';
 
 const Popups = ({
   showFlowerPopup,
@@ -35,7 +36,7 @@ const Popups = ({
   closeSingleImagePopup
 }) => {
   
-  const [stackOrder, setStackOrder] = useState(Array.from({length: 20}, (_, i) => i));
+  const [stackOrder, setStackOrder] = useState(Array.from({length: 21}, (_, i) => i));
   const [isAnimating, setIsAnimating] = useState(false);
   const [animatingImage, setAnimatingImage] = useState(null);
   const [animationPhase, setAnimationPhase] = useState('idle');
@@ -44,7 +45,7 @@ const Popups = ({
     Image1, Image2, Image3, Image4, Image5,
     Image6, Image7, Image8, Image9, Image10,
     Image11, Image12, Image13, Image14, Image15,
-    Image16, Image17, Image18, Image19, Image20
+    Image16, Image17, Image18, Image19, Image20, Image21
   ];
   
   const handlePopupOutsideClick = (e, closeFunction) => {
