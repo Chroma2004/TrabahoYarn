@@ -23,6 +23,7 @@ function App() {
   const [isLetterRevealing, setIsLetterRevealing] = useState(false);
   const [isShaking, setIsShaking] = useState(true);
   const [stars, setStars] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   
   // New states for popups
   const [showFlowerPopup, setShowFlowerPopup] = useState(false);
@@ -34,34 +35,41 @@ function App() {
     document.body.style.padding = '0';
     document.body.style.overflow = 'hidden';
     
-    const shakeTimer = setTimeout(() => {
-      setIsShaking(false);
-    }, 1200);
+    // Simulate loading time
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(false);
+      
+      const shakeTimer = setTimeout(() => {
+        setIsShaking(false);
+      }, 1200);
+      
+      // Generate initial stars
+      const initialStars = Array.from({ length: 15 }, () => createStar());
+      setStars(initialStars);
+      
+      // Create new stars periodically
+      const starInterval = setInterval(() => {
+        setStars(prev => {
+          if (prev.length < 25) {
+            return [...prev, createStar()];
+          }
+          return prev;
+        });
+      }, 2000);
+      
+      // Clean up old stars
+      const cleanupInterval = setInterval(() => {
+        setStars(prev => prev.filter(star => Date.now() - star.createdAt < 10000));
+      }, 1000);
+      
+      return () => {
+        clearTimeout(shakeTimer);
+        clearInterval(starInterval);
+        clearInterval(cleanupInterval);
+      };
+    }, 2000); // Show loading screen for 2 seconds
     
-    // Generate initial stars
-    const initialStars = Array.from({ length: 15 }, () => createStar());
-    setStars(initialStars);
-    
-    // Create new stars periodically
-    const starInterval = setInterval(() => {
-      setStars(prev => {
-        if (prev.length < 25) {
-          return [...prev, createStar()];
-        }
-        return prev;
-      });
-    }, 2000);
-    
-    // Clean up old stars
-    const cleanupInterval = setInterval(() => {
-      setStars(prev => prev.filter(star => Date.now() - star.createdAt < 10000));
-    }, 1000);
-    
-    return () => {
-      clearTimeout(shakeTimer);
-      clearInterval(starInterval);
-      clearInterval(cleanupInterval);
-    };
+    return () => clearTimeout(loadingTimer);
   }, []);
 
   const createStar = () => {
@@ -149,6 +157,43 @@ function App() {
   const handleButton3Click = () => {
     setShowSingleImagePopup(true);
   };
+
+  // Simple Loading Screen - Perfectly centered
+  if (isLoading) {
+    return (
+      <div className="bg-black h-screen w-screen flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center space-y-4 sm:space-y-6 md:space-y-8">
+          {/* Happy Valentine text - responsive white text */}
+          <h1 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wider">
+            Happy Valentines my love
+          </h1>
+          
+          {/* Simple blue beating heart */}
+          <div className="relative">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-blue-500 animate-beat"
+                 style={{
+                   clipPath: 'path("M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z")',
+                 }}>
+            </div>
+          </div>
+        </div>
+
+        <style>{`
+          @keyframes beat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+          }
+          
+          .animate-beat {
+            animation: beat 1s ease-in-out infinite;
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-black h-screen w-screen flex flex-col items-center justify-between relative overflow-hidden">
