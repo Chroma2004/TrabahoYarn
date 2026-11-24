@@ -1,29 +1,276 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 @import "tailwindcss";
 
+/* ============================================================
+   WORKHUB — MINIMALIST CREAM THEME
+============================================================ */
 
-body {
-  font-family: 'DM Sans', system-ui, sans-serif;
+:root {
+  /* Main Colors */
+  --background: #f1dfca;
+  --surface: #faebd7;
+  --surface-hover: #f5e4cf;
+
+  /* Accent Colors */
+  --primary: #f36b21;
+  --primary-hover: #dc5814;
+
+  --secondary: #176d70;
+  --secondary-dark: #10484a;
+
+  /* Text Colors */
+  --text-primary: #191919;
+  --text-secondary: #857665;
+  --text-muted: #a39280;
+
+  /* Borders */
+  --border: #d8c4ad;
+  --border-hover: #bda58c;
+
+  /* Status Colors */
+  --success: #176d70;
+  --warning: #f36b21;
+  --danger: #c7503e;
+
+  /* Typography */
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: var(--text-primary);
+  background: var(--background);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-  padding: 0;
 }
 
-/* Custom scrollbar */
+/* ============================================================
+   GLOBAL RESET
+============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+#root {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+/* ============================================================
+   TYPOGRAPHY
+============================================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+  letter-spacing: -0.025em;
+}
+
+p {
+  margin-top: 0;
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   TEXT SELECTION
+============================================================ */
+
+::selection {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* ============================================================
+   SCROLLBAR
+============================================================ */
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1f2937;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4b5563;
-  border-radius: 4px;
+  background: #c8b39b;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: var(--primary);
+}
+
+/* Firefox */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c8b39b var(--background);
+}
+
+/* ============================================================
+   INPUTS
+============================================================ */
+
+input,
+textarea,
+select {
+  color-scheme: light;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   LINKS
+============================================================ */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+/* ============================================================
+   MINIMALIST UTILITIES
+============================================================ */
+
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.surface-hover:hover {
+  background: var(--surface-hover);
+}
+
+.text-muted {
+  color: var(--text-secondary);
+}
+
+.border-subtle {
+  border-color: var(--border);
+}
+
+.bg-cream {
+  background: var(--background);
+}
+
+.bg-surface {
+  background: var(--surface);
+}
+
+.text-orange {
+  color: var(--primary);
+}
+
+.text-teal {
+  color: var(--secondary);
+}
+
+/* ============================================================
+   ANIMATIONS
+============================================================ */
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pop-in {
+  animation: popIn 0.25s ease-out both;
+}
+
+/* ============================================================
+   ACCESSIBILITY
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
