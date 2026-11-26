@@ -12,6 +12,7 @@ import FileCompressor from './Components/FileCompressor';
 import Settings from './Components/Settings';
 
 import useAttendance from './Components/useAttendance';
+import useAutoBackup from './Components/useAutoBackup';
 
 import {
   loadData,
@@ -38,8 +39,12 @@ const PAGE_NAMES = {
 // ============================================================
 
 function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState(
+    'dashboard'
+  );
+
+  const [sidebarOpen, setSidebarOpen] =
+    useState(false);
 
   const [tasks, setTasks] = useState(() =>
     loadData('workhub_tasks_v1', [])
@@ -49,9 +54,19 @@ function App() {
     loadData('workhub_notes_v1', [])
   );
 
-  const [createTask, setCreateTask] = useState(false);
+  const [createTask, setCreateTask] =
+    useState(false);
 
   const attendance = useAttendance();
+
+  // ==========================================================
+  // AUTOMATIC BACKUP
+  // ==========================================================
+
+  const autoBackup = useAutoBackup(
+    tasks,
+    notes
+  );
 
   // ==========================================================
   // LOCAL STORAGE
@@ -95,7 +110,9 @@ function App() {
     ),
 
     attendance: (
-      <Attendance attendance={attendance} />
+      <Attendance
+        attendance={attendance}
+      />
     ),
 
     tasks: (
@@ -126,6 +143,7 @@ function App() {
         notes={notes}
         setTasks={setTasks}
         setNotes={setNotes}
+        autoBackup={autoBackup}
       />
     ),
   };
@@ -171,7 +189,10 @@ function App() {
 
               <h1 className="truncate text-xl font-bold tracking-tight sm:text-2xl">
                 {PAGE_NAMES[activeTab]}
-                <span className="text-[#F36B21]">.</span>
+
+                <span className="text-[#F36B21]">
+                  .
+                </span>
               </h1>
 
             </div>
