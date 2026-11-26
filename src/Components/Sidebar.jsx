@@ -8,6 +8,7 @@ import {
   X,
   CalendarCheck2,
   Layers3,
+  FileArchive,
 } from 'lucide-react';
 
 // ============================================================
@@ -52,6 +53,11 @@ const navigation = [
         id: 'converter',
         label: 'File Converter',
         icon: RefreshCw,
+      },
+      {
+        id: 'file-compressor',
+        label: 'File Compressor',
+        icon: FileArchive,
       },
     ],
   },
@@ -167,6 +173,7 @@ function Sidebar({
 
                 {group.items.map((item) => {
                   const Icon = item.icon;
+
                   const active =
                     activeTab === item.id;
 
@@ -175,6 +182,9 @@ function Sidebar({
                       key={item.id}
                       type="button"
                       onClick={() => navigate(item.id)}
+                      aria-current={
+                        active ? 'page' : undefined
+                      }
                       className={`
                         flex w-full items-center gap-3
                         rounded-lg px-3 py-3
@@ -190,6 +200,7 @@ function Sidebar({
                       <Icon
                         size={18}
                         strokeWidth={2}
+                        className="shrink-0"
                       />
 
                       <span className="flex-1">
@@ -197,7 +208,7 @@ function Sidebar({
                       </span>
 
                       {active && (
-                        <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-white" />
                       )}
                     </button>
                   );
@@ -232,6 +243,7 @@ function Sidebar({
           </div>
 
           <div className="mt-5 flex items-center justify-between border-t border-[#D8C4AD] pt-4">
+
             <span className="text-[10px] font-medium text-[#A39280]">
               TRABAHOYARN
             </span>
@@ -239,6 +251,7 @@ function Sidebar({
             <span className="text-[10px] font-medium text-[#A39280]">
               © 2026
             </span>
+
           </div>
 
         </div>

@@ -4,11 +4,11 @@ import { Menu, Circle } from 'lucide-react';
 import Sidebar from './Components/Sidebar';
 import Dashboard from './Components/Dashboard';
 import Attendance from './Components/Attendance';
-import AttendancePopup from './Components/AttendancePopup';
 import TaskManager from './Components/TaskManager';
 import Notes from './Components/Notes';
 import ImageEditor from './Components/ImageEditor';
 import FileConverter from './Components/FileConverter';
+import FileCompressor from './Components/FileCompressor';
 import Settings from './Components/Settings';
 
 import useAttendance from './Components/useAttendance';
@@ -29,6 +29,7 @@ const PAGE_NAMES = {
   notes: 'My Notes',
   image: 'Image Studio',
   converter: 'File Converter',
+  'file-compressor': 'File Compressor',
   settings: 'Settings',
 };
 
@@ -117,6 +118,8 @@ function App() {
 
     converter: <FileConverter />,
 
+    'file-compressor': <FileCompressor />,
+
     settings: (
       <Settings
         tasks={tasks}
@@ -126,6 +129,10 @@ function App() {
       />
     ),
   };
+
+  // ==========================================================
+  // RENDER
+  // ==========================================================
 
   return (
     <div className="min-h-screen bg-[#F1DFCA] text-[#191919]">
@@ -161,11 +168,14 @@ function App() {
             </button>
 
             <div className="min-w-0">
+
               <h1 className="truncate text-xl font-bold tracking-tight sm:text-2xl">
                 {PAGE_NAMES[activeTab]}
                 <span className="text-[#F36B21]">.</span>
               </h1>
+
             </div>
+
           </div>
 
           {/* RIGHT */}
@@ -173,6 +183,7 @@ function App() {
           <div className="flex items-center gap-2">
 
             <div className="hidden items-center gap-2 text-xs font-medium text-[#857665] sm:flex">
+
               <Circle
                 size={8}
                 fill="#176D70"
@@ -180,6 +191,7 @@ function App() {
               />
 
               <span>My Workspace</span>
+
             </div>
 
             <div className="ml-2 flex h-9 w-9 items-center justify-center rounded-lg bg-[#176D70] text-sm font-bold text-white">
@@ -187,25 +199,18 @@ function App() {
             </div>
 
           </div>
+
         </header>
 
         {/* PAGE CONTENT */}
 
         <main className="mx-auto w-full max-w-[1600px] px-4 py-6 sm:px-7 sm:py-8 lg:px-8">
+
           {pageContent[activeTab]}
+
         </main>
 
       </div>
-
-      {/* GLOBAL ATTENDANCE REMINDER */}
-
-      <AttendancePopup
-        type={attendance.popup}
-        now={attendance.now}
-        onTimeIn={attendance.timeIn}
-        onTimeOut={attendance.timeOut}
-        onClose={attendance.dismissPopup}
-      />
 
     </div>
   );

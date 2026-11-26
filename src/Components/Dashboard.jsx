@@ -5,9 +5,6 @@ import {
   StickyNote,
   Plus,
   Circle,
-  LogIn,
-  LogOut,
-  Wallet,
   CalendarDays,
   ArrowUpRight,
   TrendingUp,
@@ -16,13 +13,27 @@ import {
   ExternalLink,
 } from 'lucide-react';
 
-import {
-  DAILY_SALARY,
-  formatPHP,
-  formatTime,
-  getAttendanceStatus,
-  isWorkday,
-} from './useAttendance';
+import { getAttendanceStatus } from './useAttendance';
+
+// ============================================================
+// CUSTOM FACEBOOK ICON
+// ============================================================
+
+function Facebook({ size = 20, className = '' }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M14 8.5V6.8c0-.8.5-1 1-1h2.6V2h-3.5C10.2 2 9 4.4 9 6.7v1.8H6V12h3v10h5V12h3.3l.5-3.5H14z" />
+    </svg>
+  );
+}
 
 // ============================================================
 // THEME
@@ -58,6 +69,20 @@ const QUICK_LINKS = [
     url: 'https://spmadridlaw.sg.larksuite.com/wiki/T2SwwkxBxiVELhkncgLlnPqhgse',
     color: THEME.teal,
   },
+  {
+    title: 'Madrid Careers',
+    description: 'Facebook Page',
+    icon: Facebook,
+    url: 'https://www.facebook.com/madridphcareers',
+    color: '#1877F2',
+  },
+  {
+    title: 'Madrid Philippines',
+    description: 'Facebook Page',
+    icon: Facebook,
+    url: 'https://www.facebook.com/madridph',
+    color: '#1877F2',
+  },
 ];
 
 // ============================================================
@@ -82,7 +107,9 @@ function CardHeader({
 }) {
   return (
     <div className="mb-5 flex items-center justify-between gap-3">
+
       <div className="flex min-w-0 items-center gap-2.5">
+
         {Icon && (
           <Icon
             size={18}
@@ -94,6 +121,7 @@ function CardHeader({
         <h3 className="truncate text-sm font-bold text-[#191919]">
           {title}
         </h3>
+
       </div>
 
       {action && (
@@ -106,9 +134,14 @@ function CardHeader({
           <ArrowUpRight size={14} />
         </button>
       )}
+
     </div>
   );
 }
+
+// ============================================================
+// STAT CARD
+// ============================================================
 
 function StatCard({
   title,
@@ -117,8 +150,10 @@ function StatCard({
   accent = false,
 }) {
   return (
-    <Card className="flex h-full min-h-[130px] flex-col justify-between">
+    <Card className="flex h-full min-h-[120px] flex-col justify-between">
+
       <div className="flex items-center justify-between gap-3">
+
         <p className="text-xs font-medium text-[#857665]">
           {title}
         </p>
@@ -127,14 +162,18 @@ function StatCard({
           size={19}
           strokeWidth={1.8}
           className={
-            accent ? 'text-[#F36B21]' : 'text-[#176D70]'
+            accent
+              ? 'text-[#F36B21]'
+              : 'text-[#176D70]'
           }
         />
+
       </div>
 
-      <p className="mt-6 text-4xl font-bold tracking-tight text-[#191919]">
+      <p className="mt-5 text-4xl font-bold tracking-tight text-[#191919]">
         {value}
       </p>
+
     </Card>
   );
 }
@@ -156,37 +195,44 @@ function QuickAccessCard({
       target="_blank"
       rel="noopener noreferrer"
       className="
-        group flex min-w-0 items-center gap-4
+        group flex min-w-0 items-center gap-3
         border border-[#D8C4AD]
         bg-[#FAEBD7]
         p-4
-        transition-colors
+        transition-all duration-200
         hover:border-[#F36B21]
-        sm:p-5
+        hover:bg-[#F5E4CF]
       "
     >
+
       <div
-        className="flex h-11 w-11 shrink-0 items-center justify-center text-white"
+        className="flex h-10 w-10 shrink-0 items-center justify-center text-white"
         style={{ backgroundColor: color }}
       >
-        <Icon size={20} strokeWidth={1.8} />
+        <Icon size={19} strokeWidth={1.8} />
       </div>
 
       <div className="min-w-0 flex-1">
-        <h3 className="truncate text-sm font-bold text-[#191919]">
+
+        <h3
+          title={title}
+          className="truncate text-xs font-bold text-[#191919]"
+        >
           {title}
         </h3>
 
-        <p className="mt-1 truncate text-xs text-[#857665]">
+        <p className="mt-1 truncate text-[10px] text-[#857665]">
           {description}
         </p>
+
       </div>
 
       <ExternalLink
-        size={17}
+        size={15}
         strokeWidth={1.8}
         className="shrink-0 text-[#857665] transition-colors group-hover:text-[#F36B21]"
       />
+
     </a>
   );
 }
@@ -201,7 +247,9 @@ function MiniAttendanceCalendar({
   now,
   navigate,
 }) {
-  const [year, month] = monthKey.split('-').map(Number);
+  const [year, month] = monthKey
+    .split('-')
+    .map(Number);
 
   const firstDay = new Date(
     Date.UTC(year, month - 1, 1)
@@ -214,9 +262,19 @@ function MiniAttendanceCalendar({
   const monthName = new Intl.DateTimeFormat('en-US', {
     month: 'long',
     timeZone: 'UTC',
-  }).format(new Date(Date.UTC(year, month - 1, 1)));
+  }).format(
+    new Date(Date.UTC(year, month - 1, 1))
+  );
 
-  const weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  const weekdays = [
+    'S',
+    'M',
+    'T',
+    'W',
+    'T',
+    'F',
+    'S',
+  ];
 
   const days = [
     ...Array(firstDay).fill(null),
@@ -258,7 +316,11 @@ function MiniAttendanceCalendar({
 
   return (
     <div className="flex h-full w-full flex-col">
+
+      {/* MONTH */}
+
       <div className="mb-4 flex items-center justify-between">
+
         <p className="text-sm font-bold text-[#191919]">
           {monthName} {year}
         </p>
@@ -271,9 +333,13 @@ function MiniAttendanceCalendar({
         >
           <ArrowUpRight size={17} />
         </button>
+
       </div>
 
+      {/* CALENDAR DAYS */}
+
       <div className="grid grid-cols-7 gap-1">
+
         {weekdays.map((day, index) => (
           <div
             key={`${day}-${index}`}
@@ -303,27 +369,44 @@ function MiniAttendanceCalendar({
               key={dateKey}
               type="button"
               onClick={() => navigate('attendance')}
-              className={`mx-auto flex aspect-square w-full max-w-10 items-center justify-center rounded-full text-xs font-medium transition-opacity hover:opacity-70 ${getDayClass(
-                dateKey
-              )}`}
+              aria-label={dateKey}
+              className={`
+                mx-auto flex aspect-square
+                w-full max-w-10 items-center
+                justify-center rounded-full
+                text-xs font-medium
+                transition-opacity hover:opacity-70
+                ${getDayClass(dateKey)}
+              `}
             >
               {day}
             </button>
           );
         })}
+
       </div>
 
+      {/* LEGEND */}
+
       <div className="mt-auto flex flex-wrap items-center gap-4 pt-5">
-        <span className="flex items-center gap-1.5 text-[11px] text-[#857665]">
+
+        <span className="flex items-center gap-1.5 text-[10px] text-[#857665]">
+          <span className="h-2 w-2 rounded-full bg-[#F36B21]" />
+          Today
+        </span>
+
+        <span className="flex items-center gap-1.5 text-[10px] text-[#857665]">
           <span className="h-2 w-2 rounded-full bg-[#176D70]" />
           Present
         </span>
 
-        <span className="flex items-center gap-1.5 text-[11px] text-[#857665]">
-          <span className="h-2 w-2 rounded-full bg-[#F36B21]" />
+        <span className="flex items-center gap-1.5 text-[10px] text-[#857665]">
+          <span className="h-2 w-2 rounded-full bg-[#F36B21]/20" />
           Absent
         </span>
+
       </div>
+
     </div>
   );
 }
@@ -378,27 +461,8 @@ function Dashboard({
   const {
     now,
     records,
-    todayRecord,
     currentMonth,
-    currentStats,
-    timeIn,
-    timeOut,
   } = attendance;
-
-  const todayStatus = getAttendanceStatus(
-    now.date,
-    todayRecord,
-    now
-  );
-
-  const canTimeIn =
-    isWorkday(now.date) &&
-    !todayRecord?.timeIn;
-
-  const canTimeOut =
-    isWorkday(now.date) &&
-    !!todayRecord?.timeIn &&
-    !todayRecord?.timeOut;
 
   // ==========================================================
   // DATE
@@ -410,7 +474,9 @@ function Dashboard({
     day: 'numeric',
     year: 'numeric',
     timeZone: 'UTC',
-  }).format(new Date(`${now.date}T12:00:00Z`));
+  }).format(
+    new Date(`${now.date}T12:00:00Z`)
+  );
 
   // ==========================================================
   // RENDER
@@ -418,21 +484,26 @@ function Dashboard({
 
   return (
     <div className="w-full min-w-0 bg-[#F1DFCA] pb-8 text-[#191919]">
+
       <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-12">
 
         {/* ================================================== */}
         {/* HEADER */}
         {/* ================================================== */}
 
-        <section className="col-span-1 flex flex-col justify-between gap-5 border border-[#D8C4AD] bg-[#FAEBD7] p-6 sm:col-span-2 sm:flex-row sm:items-center lg:col-span-12">
+        <section className="col-span-1 flex flex-wrap items-center justify-between gap-4 border border-[#D8C4AD] bg-[#FAEBD7] p-5 sm:col-span-2 lg:col-span-12">
+
           <div>
+
             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
               Dashboard
+              <span className="text-[#F36B21]">.</span>
             </h1>
 
             <p className="mt-1 text-xs text-[#857665]">
               {formattedDate}
             </p>
+
           </div>
 
           <button
@@ -443,27 +514,34 @@ function Dashboard({
             <Plus size={17} />
             New Task
           </button>
+
         </section>
 
         {/* ================================================== */}
         {/* QUICK ACCESS */}
         {/* ================================================== */}
 
-        <section className="col-span-1 min-w-0 sm:col-span-2 lg:col-span-12">
+        <section className="col-span-1 min-w-0 py-1 sm:col-span-2 lg:col-span-12">
+
           <div className="mb-3 flex items-center justify-between">
+
             <h2 className="text-sm font-bold text-[#191919]">
               Quick Access
             </h2>
+
           </div>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+
             {QUICK_LINKS.map((link) => (
               <QuickAccessCard
                 key={link.title}
                 {...link}
               />
             ))}
+
           </div>
+
         </section>
 
         {/* ================================================== */}
@@ -471,129 +549,151 @@ function Dashboard({
         {/* ================================================== */}
 
         <div className="col-span-1 lg:col-span-3">
+
           <StatCard
             title="All Tasks"
             value={total}
             icon={ListTodo}
             accent
           />
+
         </div>
 
         <div className="col-span-1 lg:col-span-3">
+
           <StatCard
             title="To Do"
             value={pending}
             icon={Clock3}
           />
+
         </div>
 
         <div className="col-span-1 lg:col-span-3">
+
           <StatCard
             title="Completed"
             value={completed}
             icon={CheckCircle2}
           />
+
         </div>
 
         <div className="col-span-1 lg:col-span-3">
+
           <StatCard
             title="Notes"
             value={notes.length}
             icon={StickyNote}
           />
+
         </div>
 
         {/* ================================================== */}
-        {/* TIME TRACKER */}
+        {/* TASK PROGRESS */}
         {/* ================================================== */}
 
-        <Card className="col-span-1 flex flex-col sm:col-span-2 lg:col-span-5">
+        <Card className="col-span-1 flex flex-col sm:col-span-2 lg:col-span-8">
+
           <CardHeader
-            title="Time Tracker"
-            icon={Clock3}
-            action="History"
-            onAction={() => navigate('attendance')}
+            title="Task Progress"
+            icon={TrendingUp}
+            action="View Tasks"
+            onAction={() => navigate('tasks')}
           />
 
-          <div className="flex flex-wrap items-end justify-between gap-3 border-b border-[#D8C4AD] pb-5">
-            <div>
-              <p className="text-xs text-[#857665]">
-                Philippine Time
+          <div className="flex flex-1 flex-col justify-center">
+
+            {/* PROGRESS PERCENTAGE */}
+
+            <div className="flex items-end justify-between gap-4">
+
+              <p className="text-6xl font-bold tracking-tight text-[#F36B21] sm:text-7xl">
+                {progress}
+                <span className="text-3xl sm:text-4xl">
+                  %
+                </span>
               </p>
 
-              <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                {formatTime(now.time)}
-              </h2>
+              <span className="pb-1 text-xs font-medium text-[#857665]">
+                {completed} of {total} tasks
+              </span>
+
             </div>
 
-            <span className="bg-[#F36B21]/10 px-3 py-1.5 text-[11px] font-semibold capitalize text-[#DC5814]">
-              {todayStatus}
-            </span>
-          </div>
+            {/* PROGRESS BAR */}
 
-          <div className="mt-5 grid grid-cols-2 gap-3">
-            <div className="border border-[#D8C4AD] p-4">
-              <div className="flex items-center gap-2 text-[#857665]">
-                <LogIn size={15} />
+            <div
+              role="progressbar"
+              aria-label="Task progress"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={progress}
+              className="mt-6 h-3 w-full overflow-hidden bg-[#D8C4AD]"
+            >
 
-                <span className="text-xs">
-                  Time In
-                </span>
+              <div
+                className="h-full bg-[#176D70] transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              />
+
+            </div>
+
+            {/* PROGRESS BREAKDOWN */}
+
+            <div className="mt-6 grid grid-cols-2 gap-3">
+
+              <div className="border border-[#D8C4AD] p-4">
+
+                <div className="flex items-center gap-2 text-[#176D70]">
+
+                  <CheckCircle2 size={15} />
+
+                  <span className="text-xs font-medium">
+                    Completed
+                  </span>
+
+                </div>
+
+                <p className="mt-3 text-3xl font-bold text-[#176D70]">
+                  {completed}
+                </p>
+
               </div>
 
-              <p className="mt-3 break-words text-lg font-bold">
-                {formatTime(todayRecord?.timeIn)}
-              </p>
-            </div>
+              <div className="border border-[#D8C4AD] p-4">
 
-            <div className="border border-[#D8C4AD] p-4">
-              <div className="flex items-center gap-2 text-[#857665]">
-                <LogOut size={15} />
+                <div className="flex items-center gap-2 text-[#F36B21]">
 
-                <span className="text-xs">
-                  Time Out
-                </span>
+                  <Clock3 size={15} />
+
+                  <span className="text-xs font-medium">
+                    Remaining
+                  </span>
+
+                </div>
+
+                <p className="mt-3 text-3xl font-bold text-[#F36B21]">
+                  {pending}
+                </p>
+
               </div>
 
-              <p className="mt-3 break-words text-lg font-bold">
-                {formatTime(todayRecord?.timeOut)}
-              </p>
             </div>
+
           </div>
 
-          <div className="mt-auto grid grid-cols-2 gap-3 pt-5">
-            <button
-              type="button"
-              onClick={timeIn}
-              disabled={!canTimeIn}
-              className="flex items-center justify-center gap-2 bg-[#176D70] px-3 py-3 text-xs font-semibold text-white transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              <LogIn size={16} />
-              Time In
-            </button>
-
-            <button
-              type="button"
-              onClick={timeOut}
-              disabled={!canTimeOut}
-              className="flex items-center justify-center gap-2 bg-[#F36B21] px-3 py-3 text-xs font-semibold text-white transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              <LogOut size={16} />
-              Time Out
-            </button>
-          </div>
         </Card>
 
         {/* ================================================== */}
         {/* CALENDAR */}
         {/* ================================================== */}
 
-        <Card className="col-span-1 flex flex-col sm:col-span-1 lg:col-span-3">
+        <Card className="col-span-1 flex flex-col sm:col-span-2 lg:col-span-4">
+
           <CardHeader
             title="Calendar"
             icon={CalendarDays}
-            action="View"
-            onAction={() => navigate('attendance')}
           />
 
           <MiniAttendanceCalendar
@@ -602,84 +702,7 @@ function Dashboard({
             now={now}
             navigate={navigate}
           />
-        </Card>
 
-        {/* ================================================== */}
-        {/* EARNINGS */}
-        {/* ================================================== */}
-
-        <Card className="col-span-1 flex flex-col sm:col-span-1 lg:col-span-4">
-          <CardHeader
-            title="Estimated Earnings"
-            icon={Wallet}
-          />
-
-          <div className="mt-auto">
-            <p className="text-xs text-[#857665]">
-              This Month
-            </p>
-
-            <h2 className="mt-3 break-words text-3xl font-bold tracking-tight text-[#176D70] sm:text-4xl">
-              {formatPHP(currentStats.earned)}
-            </h2>
-
-            <div className="mt-6 grid grid-cols-2 gap-3 border-t border-[#D8C4AD] pt-5">
-              <div>
-                <p className="text-2xl font-bold">
-                  {currentStats.present}
-                </p>
-
-                <p className="mt-1 text-xs text-[#857665]">
-                  Present
-                </p>
-              </div>
-
-              <div>
-                <p className="text-2xl font-bold">
-                  {currentStats.absent}
-                </p>
-
-                <p className="mt-1 text-xs text-[#857665]">
-                  Absent
-                </p>
-              </div>
-            </div>
-
-            <p className="mt-5 text-xs text-[#857665]">
-              {formatPHP(DAILY_SALARY)} / day
-            </p>
-          </div>
-        </Card>
-
-        {/* ================================================== */}
-        {/* TASK PROGRESS */}
-        {/* ================================================== */}
-
-        <Card className="col-span-1 flex flex-col sm:col-span-2 lg:col-span-12">
-          <CardHeader
-            title="Task Progress"
-            icon={TrendingUp}
-          />
-
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-            <p className="shrink-0 text-5xl font-bold tracking-tight text-[#F36B21]">
-              {progress}%
-            </p>
-
-            <div className="w-full flex-1">
-              <div className="h-2 w-full bg-[#D8C4AD]">
-                <div
-                  className="h-full bg-[#176D70] transition-all duration-500"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-
-              <div className="mt-3 flex items-center justify-between gap-3 text-xs text-[#857665]">
-                <span>{completed} completed</span>
-                <span>{pending} remaining</span>
-              </div>
-            </div>
-          </div>
         </Card>
 
         {/* ================================================== */}
@@ -687,6 +710,7 @@ function Dashboard({
         {/* ================================================== */}
 
         <Card className="col-span-1 flex min-w-0 flex-col sm:col-span-1 lg:col-span-6">
+
           <CardHeader
             title="Up Next"
             icon={ListTodo}
@@ -696,6 +720,7 @@ function Dashboard({
 
           {pendingTasks.length ? (
             <div className="divide-y divide-[#D8C4AD]">
+
               {pendingTasks.map((task) => (
                 <button
                   key={task.id}
@@ -703,6 +728,7 @@ function Dashboard({
                   onClick={() => navigate('tasks')}
                   className="flex w-full items-center gap-3 py-4 text-left transition-colors hover:text-[#F36B21]"
                 >
+
                   <Circle
                     size={17}
                     className="shrink-0 text-[#176D70]"
@@ -712,16 +738,32 @@ function Dashboard({
                     {task.title}
                   </p>
 
-                  <span className="shrink-0 text-[11px] text-[#857665]">
+                  <span
+                    className={`
+                      shrink-0 px-2 py-1
+                      text-[10px] font-semibold
+                      ${
+                        task.priority === 'High'
+                          ? 'bg-[#C7503E]/10 text-[#C7503E]'
+                          : task.priority === 'Low'
+                            ? 'bg-[#176D70]/10 text-[#176D70]'
+                            : 'bg-[#EAD5BD] text-[#857665]'
+                      }
+                    `}
+                  >
                     {task.priority || 'Medium'}
                   </span>
+
                 </button>
               ))}
+
             </div>
           ) : (
-            <div className="flex min-h-[160px] flex-1 flex-col items-center justify-center text-center">
+            <div className="flex min-h-[180px] flex-1 flex-col items-center justify-center text-center">
+
               <CheckCircle2
                 size={29}
+                strokeWidth={1.7}
                 className="text-[#176D70]"
               />
 
@@ -736,8 +778,10 @@ function Dashboard({
               >
                 Add a task
               </button>
+
             </div>
           )}
+
         </Card>
 
         {/* ================================================== */}
@@ -745,6 +789,7 @@ function Dashboard({
         {/* ================================================== */}
 
         <Card className="col-span-1 flex min-w-0 flex-col sm:col-span-1 lg:col-span-6">
+
           <CardHeader
             title="Recent Notes"
             icon={StickyNote}
@@ -754,6 +799,7 @@ function Dashboard({
 
           {recentNotes.length ? (
             <div className="divide-y divide-[#D8C4AD]">
+
               {recentNotes.map((note) => (
                 <button
                   key={note.id}
@@ -761,12 +807,14 @@ function Dashboard({
                   onClick={() => navigate('notes')}
                   className="flex w-full items-center gap-3 py-4 text-left transition-colors hover:text-[#F36B21]"
                 >
+
                   <StickyNote
                     size={17}
                     className="shrink-0 text-[#176D70]"
                   />
 
                   <div className="min-w-0 flex-1">
+
                     <p className="truncate text-sm font-medium">
                       {note.title || 'Untitled Note'}
                     </p>
@@ -774,19 +822,24 @@ function Dashboard({
                     <p className="mt-1 truncate text-xs text-[#857665]">
                       {note.content || 'Empty note'}
                     </p>
+
                   </div>
 
                   <ArrowUpRight
                     size={15}
                     className="shrink-0 text-[#857665]"
                   />
+
                 </button>
               ))}
+
             </div>
           ) : (
-            <div className="flex min-h-[160px] flex-1 flex-col items-center justify-center text-center">
+            <div className="flex min-h-[180px] flex-1 flex-col items-center justify-center text-center">
+
               <StickyNote
                 size={29}
+                strokeWidth={1.7}
                 className="text-[#176D70]"
               />
 
@@ -801,10 +854,14 @@ function Dashboard({
               >
                 Create a note
               </button>
+
             </div>
           )}
+
         </Card>
+
       </div>
+
     </div>
   );
 }
